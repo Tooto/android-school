@@ -6,8 +6,7 @@ import android.support.annotation.Nullable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import ru.handh.mvp.data.model.BridgeResponse;
-import ru.handh.mvp.data.remote.ApiService;
+import ru.handh.mvp.domain.provider.BridgesProvider;
 import ru.handh.mvp.presentation.ui.base.BasePresenter;
 
 /**
@@ -16,13 +15,13 @@ import ru.handh.mvp.presentation.ui.base.BasePresenter;
 public class BridgesListPresenter extends BasePresenter<BridgesListMvpView> {
 
     @NonNull
-    private final ApiService apiService;
+    private final BridgesProvider bridgesProvider;
 
     @Nullable
     private Disposable disposable;
 
-    public BridgesListPresenter(@NonNull ApiService apiService) {
-        this.apiService = apiService;
+    public BridgesListPresenter(@NonNull BridgesProvider bridgesProvider) {
+        this.bridgesProvider = bridgesProvider;
     }
 
     public void onCreate() {
@@ -33,8 +32,7 @@ public class BridgesListPresenter extends BasePresenter<BridgesListMvpView> {
     public void getBridges() {
         checkViewAttached();
         getMvpView().showProgressView();
-        disposable = apiService.getBridges()
-                .map(BridgeResponse::getBridges)
+        disposable = bridgesProvider.getBridges()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bridges -> getMvpView().showBridges(bridges),

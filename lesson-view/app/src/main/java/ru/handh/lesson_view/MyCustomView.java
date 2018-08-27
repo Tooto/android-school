@@ -95,7 +95,7 @@ class MyCustomView extends View {
         //перерисовка
         invalidate();
         //показать диаграмму https://stackoverflow.com/questions/13856180/usage-of-forcelayout-requestlayout-and-invalidate
-        requestLayout();
+        //requestLayout();
     }
 
     @Override
@@ -173,6 +173,7 @@ class MyCustomView extends View {
 
         Paint.FontMetrics fm = textPaint.getFontMetrics();
         canvas.drawText(text, 0, textBounds.height() - fm.descent, textPaint);
+
         //https://stackoverflow.com/questions/3654321/measuring-text-height-to-be-drawn-on-canvas-android
     }
 
@@ -180,17 +181,17 @@ class MyCustomView extends View {
     public boolean onTouchEvent(MotionEvent event) {
 
 //        // TODO показать документацию, рассказать про типы кликов
-//        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//            return true;
-//        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-//            toggleMyAnimation();
-//            return true;
-//        } else {
-//            return false;
-//        }
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            return true;
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            toggleMyAnimation();
+            return true;
+        } else {
+            return false;
+        }
 
         //TODO про физические анимации, как либа
-        return gestureDetector.onTouchEvent(event);
+       // return gestureDetector.onTouchEvent(event);
     }
 
     private void toggleMyAnimation() {
@@ -218,7 +219,7 @@ class MyCustomView extends View {
             return;
         }
 
-        if (true) {
+        if (enabled) {
             //OBJECT ANIMATOR, рссказать про геттеры и сеттеры, интерполятор, слушатель
             ObjectAnimator transitionAnimator = ObjectAnimator.ofFloat(this, "translationX", 0, 300);
             transitionAnimator.setDuration(1000);
@@ -258,7 +259,7 @@ class MyCustomView extends View {
             return;
         }
 
-        if (true) {
+        if (enabled) {
             // ANIMATION SET
             ObjectAnimator fadeOut = ObjectAnimator.ofFloat(this, "alpha", 1f, 0f);
             fadeOut.setDuration(2000);

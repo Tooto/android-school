@@ -3,6 +3,7 @@ package ru.handh.mvp.di;
 import android.content.Context;
 
 import ru.handh.mvp.data.remote.ApiService;
+import ru.handh.mvp.domain.provider.BridgesProvider;
 import ru.handh.mvp.presentation.ui.bridgeslist.BridgesAdapter;
 import ru.handh.mvp.presentation.ui.bridgeslist.BridgesListPresenter;
 
@@ -13,12 +14,18 @@ public class ApplicationComponents {
 
     private static volatile ApplicationComponents instance;
 
-    private ApiService apiService;
+    private final ApiService apiService;
     private Context context;
+
+
+    private final BridgesProvider bridgesProvider;
+
 
     private ApplicationComponents(Context context) {
         this.context = context;
         this.apiService = ApiService.Creator.newApiService(context);
+
+        this.bridgesProvider = new BridgesProvider(apiService);
     }
 
     public static ApplicationComponents getInstance(Context context) {
@@ -47,8 +54,10 @@ public class ApplicationComponents {
     }
 
     public BridgesListPresenter providePridgesListPresenter() {
-        return new BridgesListPresenter(provideApiService());
+        return new BridgesListPresenter(provideBridgesProvider());
     }
 
-
+    public BridgesProvider provideBridgesProvider() {
+        return bridgesProvider;
+    }
 }

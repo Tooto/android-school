@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //((MyCustomView)findViewById(R.id.myView)).setText("asdasdasdasdasdas");
+                //((MyCustomView)findViewById(R.id.myView)).setText("asdasdasdasdasdasasdasdasdasdasdasdasd");
 
                 boolean enabled = false;
                 if (enabled) {

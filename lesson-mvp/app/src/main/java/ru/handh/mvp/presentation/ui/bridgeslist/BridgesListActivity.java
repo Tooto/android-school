@@ -48,7 +48,6 @@ public class BridgesListActivity extends BaseActivity implements BridgesListMvpV
         recyclerView.setAdapter(bridgesAdapter);
 
         bridgesListPresenter.onCreate();
-
     }
 
     @Override

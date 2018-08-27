@@ -52,6 +52,7 @@ public class LinedEditText extends android.support.v7.widget.AppCompatEditText {
              */
             canvas.drawLine(r.left, baseline + 1, r.right, baseline + 1, paint);
 
+
         }
         // Finishes up by calling the parent method
         super.onDraw(canvas);
