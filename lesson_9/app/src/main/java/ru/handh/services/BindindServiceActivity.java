@@ -3,6 +3,7 @@ package ru.handh.services;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -44,7 +45,11 @@ public class BindindServiceActivity extends AppCompatActivity {
     }
 
     public void onClickStart(View v) {
-        startService(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 
     public void onClickStop(View v) {

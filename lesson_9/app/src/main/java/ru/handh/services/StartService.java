@@ -20,14 +20,14 @@ public class StartService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d("LES", "onCreate");
+        Log.d("LES", "onCreate " + this);
         super.onCreate();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("LES", "onStartCommand " + startId);
-        someTask();
+        someTask(startId);
         //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
@@ -40,14 +40,14 @@ public class StartService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d("LES", "onDestroy");
+        Log.d("LES", "onDestroy " + this);
         super.onDestroy();
     }
 
-    void someTask() {
+    void someTask(final int startId) {
         new Thread(new Runnable() {
             public void run() {
-                for (int i = 1; i <= 50; i++) {
+                for (int i = 1; i <= 10; i++) {
                     Log.d("LES", "i = " + i);
                     try {
                         TimeUnit.SECONDS.sleep(1);
@@ -60,7 +60,7 @@ public class StartService extends Service {
                 sendBroadcast(intent);
                 //рассказать почему так
                 //LocalBroadcastManager.getInstance(StartService.this).sendBroadcast(intent);
-                stopSelf();
+                stopSelf(startId);
             }
         }).start();
     }
