@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp">
@@ -9,7 +10,10 @@
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:maxLines="1"
         android:orientation="vertical"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        tools:text="Приве asdhjasdagsdnbvanbsdvnaasdanbsdanbsdvabnvsdnbavbnsdvanbт"/>
 
 </androidx.cardview.widget.CardView>

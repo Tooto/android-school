@@ -1,6 +1,7 @@
 package ru.handh.lesson4;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -32,7 +33,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         MyAdapter mAdapter = new MyAdapter(myDataset);
+        mAdapter.setOnTextClickListener(new MyAdapter.OnTextClickListener() {
+            @Override
+            public void onItemClick(String text) {
+                Toast.makeText(MainActivity.this, "Click " + text, Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView.setAdapter(mAdapter);
+
+
 
     }
 }
