@@ -96,7 +96,7 @@ class MyCustomView extends View {
         //перерисовка
         invalidate();
         //показать диаграмму https://stackoverflow.com/questions/13856180/usage-of-forcelayout-requestlayout-and-invalidate
-        //requestLayout();
+        // requestLayout();
     }
 
     @Override
@@ -107,7 +107,8 @@ class MyCustomView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.d("LES", "onMeasure");
+        Log.d("LES onMeasure w", MeasureSpec.toString(widthMeasureSpec));
+        Log.d("LES onMeasure h", MeasureSpec.toString(heightMeasureSpec));
 
         textPaint.getTextBounds(text, 0, text.length(), textBounds);
 
@@ -117,12 +118,13 @@ class MyCustomView extends View {
         int minh = getPaddingBottom() + getPaddingTop() + textBounds.height();
         int h = resolveSizeAndState(minh, heightMeasureSpec, 0);
 
+
         Log.d("LES", "w= " + w + ", h= " + h);
 
         int side = Math.max(w, h);
 
         setMeasuredDimension(side, side);
-        //setMeasuredDimension(w, h);
+        // setMeasuredDimension(w, h);
 
         // пояснялка
 //        int desiredWidth = 100;
@@ -169,7 +171,7 @@ class MyCustomView extends View {
         Log.d("LES", "onDraw");
         super.onDraw(canvas);
 
-        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, diameter / 2, circlePaint);
+        canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f, diameter / 2.0f, circlePaint);
 
 
         Paint.FontMetrics fm = textPaint.getFontMetrics();
@@ -182,17 +184,20 @@ class MyCustomView extends View {
     public boolean onTouchEvent(MotionEvent event) {
 
 //        // TODO показать документацию, рассказать про типы кликов
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            return true;
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            toggleMyAnimation();
-            return true;
+        boolean touch = true;
+        if (touch) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                return true;
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                toggleMyAnimation();
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            //TODO про физические анимации, как либа
+            return gestureDetector.onTouchEvent(event);
         }
-
-        //TODO про физические анимации, как либа
-       // return gestureDetector.onTouchEvent(event);
     }
 
     private void toggleMyAnimation() {
@@ -220,6 +225,7 @@ class MyCustomView extends View {
             return;
         }
 
+        enabled = false;
         if (enabled) {
             //OBJECT ANIMATOR, рссказать про геттеры и сеттеры, интерполятор, слушатель
             ObjectAnimator transitionAnimator = ObjectAnimator.ofFloat(this, "translationX", 0, 300);
@@ -260,6 +266,7 @@ class MyCustomView extends View {
             return;
         }
 
+        enabled = false;
         if (enabled) {
             // ANIMATION SET
             ObjectAnimator fadeOut = ObjectAnimator.ofFloat(this, "alpha", 1f, 0f);
@@ -271,7 +278,6 @@ class MyCustomView extends View {
             final AnimatorSet mAnimationSet = new AnimatorSet();
             mAnimationSet.play(fadeIn).after(fadeOut);
             mAnimationSet.start();
-            return;
         }
     }
 

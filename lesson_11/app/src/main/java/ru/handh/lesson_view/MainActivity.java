@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //((MyCustomView)findViewById(R.id.myView)).setText("asdasdasdasdasdasasdasdasdasdasdasdasd");
+                // ((MyCustomView)findViewById(R.id.myView)).setText("asdasdasdasdasdasasdasdasdasdasdasdasd");
 
                 boolean enabled = false;
                 if (enabled) {
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                enabled = false;
                 if (enabled) {
                     ValueAnimator xmlAnimator = (ValueAnimator) AnimatorInflater.loadAnimator(getBaseContext(),
                             R.animator.value_animator);
